@@ -1,0 +1,63 @@
+﻿@model clothes_store.ViewModel.RegisterViewModel
+
+@{
+    ViewData["Title"] = "AddAdmin";
+}
+
+@{
+    Layout = "_MyLayout";
+}
+
+@section AddAdmin {
+   
+
+    
+    <hr />
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <form asp-action="AddAdmin" class="mt-4">
+                <div class="form-group">
+                    <label asp-for="UserNAme" class="control-label" style="font-family:'Times New Roman'">Username</label>
+                    <input asp-for="UserNAme" class="form-control" />
+                    <span asp-validation-for="UserNAme" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email" class="control-label" style="font-family:'Times New Roman'">Email</label>
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label" style="font-family:'Times New Roman'">Password</label>
+                    <input asp-for="Password" type="password" class="form-control" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Confirmpassword" class="control-label" style="font-family:'Times New Roman'">Confirm Password</label>
+                    <input asp-for="Confirmpassword" type="password" class="form-control" />
+                    <span asp-validation-for="Confirmpassword" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Address" class="control-label" style="font-family:'Times New Roman'">Address</label>
+                    <input asp-for="Address" class="form-control" />
+                    <span asp-validation-for="Address" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PhoneNumber" class="control-label" style="font-family:'Times New Roman'">Phone Number</label>
+                    <input asp-for="PhoneNumber" class="form-control" />
+                    <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+                </div>
+                <br />
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn" style="background-color:seagreen;color:white" />
+                </div>
+            </form>
+        </div>
+    </div>
+}
+
+<style>
+    /* Custom styling for the form */
+    .mt-4 {
+        margin-top: 4rem;
+    }
+</style>

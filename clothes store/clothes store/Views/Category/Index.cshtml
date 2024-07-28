@@ -1,0 +1,85 @@
+﻿@model IEnumerable<clothes_store.Models.Category>
+@{
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+@section MainContent {
+    <style>
+        .card-img-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            height: 100%;
+            border-radius: 14px;
+        }
+
+            .card-img-container img {
+                width: 100%;
+                height: 100%;
+                transition: transform 0.3s ease;
+            }
+
+            .card-img-container:hover img {
+                transform: scale(1.05);
+            }
+
+
+        .centered-button {
+            position: absolute;
+            top: 90%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 10px 30px;
+            transition: transform 0.2s;
+            font-weight: bold
+        }
+
+            .centered-button:hover {
+                color: sienna;
+            }
+    </style>
+    <div class="container-fluid p-0 pb-5">
+        <div class="owl-carousel header-carousel position-relative mb-5">
+            <div class="owl-carousel-item position-relative">
+                <img class="img-fluid" src="~/img/women.png" alt="">
+                <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center" style="background: rgba(6, 3, 21, .5);">
+                    <div class="container">
+                        <div class="row justify-content-start">
+                            <div class="col-10 col-lg-8">
+                                <h5 class="text-white text-uppercase mb-3 animated slideInDown">Every Item To Every Need</h5>
+                                <h1 class="display-3 text-white animated slideInDown mb-4">For You Our <span class="text-primary">Lady</span> </h1>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+                </div>
+
+    <br />
+    <br />
+    <br />
+
+    <div class="container">
+        <div class="row">
+            @foreach (var category in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="card-img-container">
+                            <a asp-controller="Product" asp-action="ShowProducts" asp-route-categoryId="@category.Id">
+                                <img src="/img/gallery/@category.Image" alt="Category Image">
+
+                            </a>
+                            <a asp-controller="Product" asp-action="ShowProducts" asp-route-categoryId="@category.Id" class="centered-button">@category.Name</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+

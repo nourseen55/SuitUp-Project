@@ -1,0 +1,305 @@
+﻿@model List<Item>
+@{
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+    ViewBag.Title = "Index";
+    <head>
+        <!-- Other head elements -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    </head>
+
+}
+
+@section index {
+    @if (Model != null && Model.Any(i => i.IsInCart))
+    {
+        <div class="cart-container">
+            <h2 class="text-center" style="font-family:'Times New Roman'">YOUR CART</h2>
+            <div class="table-container">
+                <table class="table table-bordered table-hover">
+                    <thead style="background-color:grey; color: white;">
+                        <tr>
+                            <th style ="font-family:'Times New Roman'">Product Name</th>
+                            <th style="font-family:'Times New Roman'">Product Price</th>
+                            <th style="font-family:'Times New Roman'">Product Quantity</th>
+                            <th style="font-family:'Times New Roman'">Product Amount</th>
+                            <th style="font-family:'Times New Roman'">Remove Product</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.Where(i => i.IsInCart))
+                        {
+                            <tr class="product-row">
+                                <td class="center-content" style="font-family:'Times New Roman'">@item.Product.Name</td>
+                                <td id="price_@item.Id" class="center-content" style="font-family:'Times New Roman'">$@item.Product.Price</td>
+                                <td class="center-content" style="font-family:'Times New Roman'">
+                                    <div class="quantity-control">
+                                        <button onclick="decreaseQuantity(@item.Id)" class="decrease-btn" style="color:grey;">-</button>
+                                        <span id="quantity_@item.Id" class="quantity" style="font-family:'Times New Roman'">@item.Quantity</span>
+                                        <button onclick="increaseQuantity(@item.Id)" class="increase-btn" style="color:grey;">+</button>
+                                    </div>
+                                </td>
+                                <td id="amount_@item.Id" class="center-content product-amount" style="font-family:'Times New Roman'">$@(item.Product.Price * item.Quantity)</td>
+                                <td class="center-content">
+                                    <a href="@Url.Action("RemoveFromCart","Cart",new{productId=item.Product.Id})">
+                                        <i class="fa fa-trash" style="color:grey;"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                        <tr>
+                                @if (Model.Any(i => i.IsInCart))
+                                {
+                                <td colspan="6" class="text-center" style="font-family:'Times New Roman'"><strong>Total: <span id="total">$@Model.Where(i=>i.IsInCart).Sum(item => item.Product.Price * item.Quantity)</span></strong></td>
+                                }
+
+
+                        </tr>
+                        </tr>
+                        <tr>
+                            <td colspan="6" class="text-center">
+                                <a href="@Url.Action("Checkout","Checkout")">
+                                    <button class="btn btn-primary checkout-btn quantity-control" style="background-color:grey;font-family:'Times New Roman'">Proceed to Checkout</button>
+                                </a>
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <!-- Alert message -->
+        <div id="alertMessage" class="alert-message">
+            <div class="alert-content">
+                <span id="alertText"></span>
+                <button class="close-btn" onclick="closeAlert()">&times;</button>
+            </div>
+        </div>
+    }
+    else
+    {
+        <section style="position: relative;">
+            <br />
+            <br />
+            <br />
+            <center>
+                <div style="">
+                    <h3>Your Cart Is Empty</h3>
+                    <p>Every Item For Every Need</p>
+                    <button class="btn btn-lg btn-light"><a asp-action="index" asp-controller="home">Go Shopping</a></button>
+                </div>
+            </center>
+            <br />
+            <br />
+            <br />
+        </section>
+
+
+
+
+    }
+
+
+}
+
+<style>
+    .quantity-control {
+        display: flex;
+        align-items: center;
+        justify-content: center; /* Center the content horizontally */
+        gap: 10px; /* Add some spacing between the buttons and the quantity */
+    }
+
+    .cart-container {
+        width: 80%;
+        margin: 0 auto; /* Center the container horizontally */
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        padding: 20px;
+        margin-top: 20px; /* Add some top margin */
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 3px solid #ccc;
+    }
+
+    th {
+        padding: 8px;
+        border: 3px solid #ccc;
+        text-align: center;
+    }
+
+    td {
+        padding: 8px;
+        border: 3px solid #ccc;
+        text-align: center;
+    }
+
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .center-content {
+        vertical-align: middle;
+    }
+
+    .checkout-btn {
+        color: white;
+        background-color: lightgray;
+        border-color: lightgray;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+        .checkout-btn:hover {
+            color: white;
+            background-color: lightgray; /* Purple */
+            border-color: lightgray; /* Purple */
+            transform: scale(1.1); /* Make the button 10% larger when hovered over */
+        }
+
+    .cart-icon {
+        font-size: 16px;
+        margin-left: 5px;
+    }
+
+    .quantity-control {
+        display: flex;
+        align-items: center;
+    }
+
+    .decrease-btn,
+    .increase-btn {
+        width: 30px;
+        height: 30px;
+        font-size: 20px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .quantity {
+        margin: 0 10px;
+    }
+
+    /* Styling for alert message */
+    .alert-message {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: rgba(255, 255, 255, 0.8);
+        color: black;
+        padding: 20px;
+        border-radius: 10px;
+        z-index: 1000;
+    }
+
+    .alert-content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .close-btn {
+        background-color: transparent;
+        border: none;
+        color: black font-size: 20px;
+        cursor: pointer;
+    }
+</style>
+<script>
+    function decreaseQuantity(itemId) {
+        var quantitySpan = document.getElementById("quantity_" + itemId);
+        var currentQuantity = parseInt(quantitySpan.innerText);
+
+        if (currentQuantity > 1) {
+            updateQuantity(itemId, currentQuantity - 1);
+        }
+    }
+
+    function increaseQuantity(itemId) {
+        var quantitySpan = document.getElementById("quantity_" + itemId);
+        var currentQuantity = parseInt(quantitySpan.innerText);
+        var maxQuantity = 5;
+
+        if (currentQuantity < maxQuantity) {
+            updateQuantity(itemId, currentQuantity + 1);
+        } else {
+            showAlert("A maximum of " + maxQuantity + " units of this item can be added.");
+        }
+    }
+
+    function updateQuantity(itemId, quantity) {
+        $.ajax({
+            type: "POST",
+            url: "/Cart/UpdateQuantity",
+            data: { itemId: itemId, quantity: quantity },
+            success: function (response) {
+                if (response.success) {
+                    var quantitySpan = document.getElementById("quantity_" + itemId);
+                    quantitySpan.innerText = quantity;
+                    updateProductAmount(itemId); // Update the product amount
+                    updateTotal(); // Update the total amount
+                } else {
+                    showAlert("Failed to update quantity.");
+                }
+            },
+            error: function () {
+                showAlert("Error occurred while updating quantity.");
+            }
+        });
+    }
+
+    function updateProductAmount(itemId) {
+        var quantitySpan = document.getElementById("quantity_" + itemId);
+        var currentQuantity = parseInt(quantitySpan.innerText);
+        var itemPrice = parseFloat(document.getElementById("price_" + itemId).innerText.replace("$", ""));
+        var productAmount = document.getElementById("amount_" + itemId);
+        productAmount.innerText = "$" + (currentQuantity * itemPrice).toFixed(2);
+    }
+
+    function updateTotal() {
+        var totalElement = document.getElementById("total");
+        var items = document.querySelectorAll(".product-row");
+
+        var total = 0;
+        items.forEach(function (item) {
+            total += parseFloat(item.querySelector(".product-amount").innerText.replace("$", ""));
+        });
+
+        totalElement.innerText = "$" + total.toFixed(2);
+    }
+
+
+   
+
+    function showAlert(message) {
+        var alertText = document.getElementById("alertText");
+        alertText.innerText = message;
+
+        var alertMessage = document.getElementById("alertMessage");
+        alertMessage.style.display = "block";
+    }
+
+    function closeAlert() {
+        var alertMessage = document.getElementById("alertMessage");
+        alertMessage.style.display = "none";
+    }
+
+  
+
+</script>
+
+

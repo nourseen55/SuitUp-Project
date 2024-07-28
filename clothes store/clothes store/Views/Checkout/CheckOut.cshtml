@@ -1,0 +1,276 @@
+﻿@model CheckoutData
+@{
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+    ViewBag.Title = "Checkout";
+}
+
+@section Checkout {
+    <head>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        <style>
+            body {
+                font-family: Arial;
+                font-size: 17px;
+                padding: 8px;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            .row {
+                display: -ms-flexbox;
+                display: flex;
+                -ms-flex-wrap: wrap;
+                flex-wrap: wrap;
+                margin: 0 -16px;
+            }
+
+            .cool-25 {
+                -ms-flex: 25%;
+                flex: 25%;
+            }
+
+            .cool-50 {
+                -ms-flex: 50%;
+                flex: 50%;
+            }
+
+            .col-75 {
+                -ms-flex: 75%;
+                flex: 75%;
+            }
+
+            .col-25,
+            .col-50,
+            .col-75 {
+                padding: 0 16px;
+            }
+
+            .container {
+                background-color: #f2f2f2;
+                padding: 5px 20px 15px 20px;
+                border: 1px solid lightgrey;
+                border-radius: 3px;
+            }
+
+            input[type=text] {
+                width: 100%;
+                margin-bottom: 20px;
+                padding: 12px;
+                border: 1px solid #ccc;
+                border-radius: 3px;
+            }
+
+            label {
+                margin-bottom: 10px;
+                display: block;
+            }
+
+            .icon-container {
+                margin-bottom: 20px;
+                padding: 7px 0;
+                font-size: 24px;
+            }
+
+            .btn {
+                background-color: #04AA6D;
+                color: white;
+                padding: 12px;
+                margin: 10px 0;
+                border: none;
+                width: 100%;
+                border-radius: 3px;
+                cursor: pointer;
+                font-size: 17px;
+            }
+
+                .btn:hover {
+                    background-color: #45a049;
+                }
+
+            a {
+                color: #2196F3;
+            }
+
+            hr {
+                border: 1px solid lightgrey;
+            }
+
+            span.price {
+                float: right;
+                color: grey;
+            }
+
+            media (max-width: 800px) {
+                .row
+
+            {
+                flex-direction: column-reverse;
+            }
+
+            .col-25 {
+                margin-bottom: 20px;
+            }
+            /* Hide the radio buttons */
+            .icon-container input[type="radio"] {
+                display: none;
+            }
+
+            /* Display labels as block elements */
+            .icon-container label {
+                display: block;
+                margin-bottom: 10px; /* Add some space between the cards */
+                cursor: pointer;
+            }
+
+            }
+
+            .form-card {
+                background-color: #ffffff;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+                margin: auto;
+                max-width: 650px; /* Adjust the maximum width as needed */
+            }
+
+            /* Style for the row containing both shipping and payment sections */
+            .shipping-payment-row {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            /* Style for the shipping section */
+            .shipping-section {
+                width: calc(50% - 10px); /* Adjust width to occupy half of the container with a little margin */
+            }
+
+            /* Style for the payment section */
+            .payment-section {
+                width: calc(50% - 10px); /* Adjust width to occupy half of the container with a little margin */
+            }
+
+            .error {
+                color: red; /* Change color to red */
+                font-size: 18px; /* Increase font size */
+                /* Add any other styles as needed */
+            }
+            @@media (max-width:700px){
+                #mastercard, .fa-cc-mastercard {
+                    visibility:hidden;
+ 
+                }
+
+                #discover, .fa-cc-discover {
+                    visibility: hidden;
+                }
+            }
+
+        </style>
+        <div class="row">
+            <div class="col-75">
+                <div class="container form-card">
+                    <form asp-action="Checkout" method="post">
+                        <div class="shipping-payment-row">
+                            <div class="shipping-section">
+                                <h3>Billing Address</h3>
+                                <label for="FullName"><i class="fa fa-user"></i> Full Name</label>
+                                <input type="text" id="FullName" name="FullName" value="@Model?.FullName" placeholder="Amaal Ahmed Selim" required>
+                                <span asp-validation-for="@Model.FullName" class="text-danger"></span>
+
+                                <label for="Email"><i class="fa fa-envelope"></i> Email</label>
+                                <input type="text" id="Email" name="Email" value="@Model?.Email" placeholder="codewithAmaal@example.com" required>
+                                <span asp-validation-for="@Model.Email" class="text-danger"></span>
+
+                                <label for="Address"><i class="fa fa-address-card-o"></i> Address</label>
+                                <input type="text" id="Address" name="Address" value="@Model?.Address" placeholder="Egypt Damietta Faraskour" required>
+                                <span asp-validation-for="@Model.Address" class="text-danger"></span>
+
+                                <label for="City"><i class="fa fa-instituton"></i> City</label>
+                                <input type="text" id="City" name="City" value="@Model?.City" placeholder="Damietta" required>
+                                <span asp-validation-for="@Model.City" class="text-danger"></span>
+                                <style>
+                                    .icon-container {
+                                        display: flex; /* Change to flex to align icons horizontally */
+                                        justify-content: space-between; /* Add space between icons */
+                                        width: 300px; /* Adjust the width of the container as needed */
+                                        margin: auto; /* Center the container horizontally */
+                                    }
+                                </style>
+                                <div class="row">
+                                    <div class="col-50">
+                                        <label for="State">State</label>
+                                        <input type="text" id="State" name="State" value="@Model?.State" placeholder="Cairo" required>
+                                        <span asp-validation-for="@Model.State" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-50">
+                                        <label for="ZipCode">Zip Code</label>
+                                        <input type="text" id="ZipCode" name="ZipCode" value="@Model?.ZipCode" placeholder="7991164" required>
+                                        <span asp-validation-for="@Model.ZipCode" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="payment-section">
+                                <h3>Payment</h3>
+                                <label for="SelectedCardType">Accepted Cards</label>
+                                <div id="cardType" class="icon-container">
+                                    <input type="radio" name="cardType" id="visa" value="visa" required>
+                                    <label for="visa"><i class="fa fa-cc-visa" style="color:navy;"></i></label>
+
+                                    <input type="radio" name="cardType" id="amex" value="amex" required>
+                                    <label for="amex"><i class="fa fa-cc-amex" style="color:blue;"></i></label>
+
+                                    <input type="radio" name="cardType" id="mastercard" value="mastercard" required>
+                                    <label for="mastercard"><i class="fa fa-cc-mastercard" style="color:red;"></i></label>
+
+                                    <input type="radio" name="cardType" id="discover" value="discover" required>
+                                    <label for="discover"><i class="fa fa-cc-discover" style="color:orange;"></i></label>
+                                </div>
+
+                                <label for="CardName">Name on Card</label>
+                                <input type="text" id="CardName" name="CardName" value="@Model?.CardName" placeholder="Amaal" required>
+                                <span asp-validation-for="@Model.CardName" class="text-danger"></span>
+
+                                <label for="CreditCardNumber">Credit card number</label>
+                                <input type="text" id="CreditCardNumber" name="CreditCardNumber" value="@Model?.CreditCardNumber" placeholder="1111-2222-3333-4444" required>
+                                <span asp-validation-for="@Model.CreditCardNumber" class="text-danger"></span>
+
+                                <label for="ExpiryMonth">Exp Month</label>
+                                <input type="text" id="ExpiryMonth" name="ExpiryMonth" value="@Model?.ExpiryMonth" placeholder="December" required>
+                                <span asp-validation-for="@Model.ExpiryMonth" class="text-danger"></span>
+
+                                <div class="row">
+                                    <div class="col-50">
+                                        <label for="ExpiryYear">Exp Year</label>
+                                        <input type="text" id="ExpiryYear" name="ExpiryYear" value="@Model?.ExpiryYear" placeholder="2027" required>
+                                        <span asp-validation-for="@Model.ExpiryYear" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-50">
+                                        <label for="CVV">CVV</label>
+                                        <input type="text" id="CVV" name="CVV" value="@Model?.CVV" placeholder="123" required>
+                                        <span asp-validation-for="@Model.CVV" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <label>
+                            <input type="checkbox" name="sameadr" required> Shipping address same as billing
+                        </label>
+                        <a href="@Url.Action("ThankYou","Checkout")"><input type="submit" value="Confirm Purchase" class="btn"></a>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </body>
+
+
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

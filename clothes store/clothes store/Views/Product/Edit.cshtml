@@ -1,0 +1,121 @@
+﻿@model clothes_store.ViewModel.ProductVM
+@{
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+@section Edit {
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+
+    <div class="PaddingAllWhite">
+        <div class="row">
+            <div class="col-10 offset-1">
+                <form asp-action="Edit" enctype="multipart/form-data" asp-route-id="@Model.Id" method="post">
+                    <div asp-validation-summary="ModelOnly"></div>
+                    <div class="row form-group pb-2">
+                        <div class="col-2">
+                            <label>NAME</label>
+                        </div>
+                        <div class="col-8">
+                            <input asp-for="Name" class="form-control">
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row form-group pb-2">
+                        <div class="col-2">
+                            <label>PRICE</label>
+                        </div>
+                        <div class="col-8">
+                            <input asp-for="Price" class="form-control">
+                            <span asp-validation-for="Price" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row pb-2">
+                        <div class="col-2">
+                            <label asp-for="lCategory_id"></label>
+                        </div>
+                        <div class="col-8">
+                            <select class="form-control" asp-for="lCategory_id" id="lCategory_id" asp-items="@(new SelectList(Model.lCategories,"Id","Name"))">
+                                <option></option>
+                            </select>
+                            <span asp-validation-for="lCategory_id" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row pb-2">
+                        <div class="col-2">
+                            <label asp-for="Category_id"></label>
+                        </div>
+                        <div class="col-8">
+                            <select class="form-control" asp-for="Category_id" id="Category_id" asp-items="@(new SelectList(Model.Categories,"Id","Name"))">
+                                <option></option>
+                            </select>
+                            <span asp-validation-for="Category_id" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row form-group pb-2">
+                        <div class="col-2">
+                            <label>IMAGE</label>
+                        </div>
+                        <div class="col-8">
+                            <input type="file" asp-for="urlimg" class="form-control" accept="image/*">
+                            <span asp-validation-for="urlimg" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <br />
+                    <br />
+                    <div class="row form-group">
+                        <div class="col-3 offset-1">
+                            <a asp-action="Index" style="color: white" class="btn btn-primary form-control">Back To List</a>
+                        </div>
+                        <div class="col-5 offset-1">
+                            <button type="submit" style="color:white" class="btn btn-primary">Save Changes</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+}
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var categories = [
+    @foreach (var category in Model.Categories)
+    {
+        <text>{ id: '@category.Id', name: '@category.Name', largeCategoryId: '@category.largeCategory.Id' }, </text>
+    }
+                    ];
+
+        $('#lCategory_id').change(function () {
+            var categoryId = $(this).val();
+            if (categoryId) {
+                // Filter categories based on selected largeCategoryId
+                $('#Category_id').empty();
+                var filteredCategories = categories.filter(function (category) {
+                    return category.largeCategoryId == categoryId;
+                });
+                $.each(filteredCategories, function (index, category) {
+                    $('#Category_id').append('<option value="' + category.id + '">' + category.name + '</option>');
+                });
+            } else {
+                // Empty the category dropdown if no lCategory_id is selected
+                $('#Category_id').empty();
+            }
+        });
+    });
+</script>
+
+
+
+
+
+
+
+
+}

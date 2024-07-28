@@ -1,0 +1,151 @@
+﻿@using System.Security.Principal
+
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <!-- ===============================================-->
+    <!--    Document Title-->
+    <!-- ===============================================-->
+    <title>SuitUP |Clothes Store</title>
+
+
+    <!-- ===============================================-->
+    <!--    Favicons-->
+    <!-- ===============================================-->
+    <link rel="apple-touch-icon" sizes="180x180" href="~/img/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="~/img/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="~/img/favicons/favicon-16x16.png">
+    <link rel="shortcut icon" type="image/x-icon" href="~/img/favicons/favicon.ico">
+    <link rel="manifest" href="~/img/favicons/manifest.json">
+    <meta name="msapplication-TileImage" content="~/img/favicons/mstile-150x150.png">
+    <meta name="theme-color" content="#ffffff">
+
+
+    <!-- ===============================================-->
+    <!--    Stylesheets-->
+    <!-- ===============================================-->
+    <link href="~/css/theme.css" rel="stylesheet" />
+
+</head>
+
+
+<body>
+    <style>
+        .navbar {
+            background-color: aliceblue;
+        }
+    </style>
+
+    <!-- ===============================================-->
+    <!--    Main Content-->
+    <!-- ===============================================-->
+    <main class="main" id="top">
+        <div style="padding:10px; margin:20px">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3 d-block" data-navbar-on-scroll="data-navbar-on-scroll">
+            <div class="container">
+                    <a class="navbar-brand d-inline-flex" asp-action="Index" asp-controller="Home"><span class="text-1000  fw-bold ms-2 " style="font-size: 20px;font-family:'Times New Roman', Times, serif ;">SuitUp</span></a>
+                <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse border-top border-lg-0 mt-4 mt-lg-0" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item px-2"><a class="nav-link fw-medium active" aria-current="page" href="@Url.Action("index","Category")">Women</a></li>
+                            <li class="nav-item px-2"><a class="nav-link fw-medium" href="@Url.Action("indexM", "Category")">Men</a></li>
+                            <li class="nav-item px-2"><a class="nav-link fw-medium" href="@Url.Action("indexkids", "Category")">Kids</a></li>
+                            <li class="nav-item px-2"><a class="nav-link fw-medium" href="@Url.Action("index", "product")">All Products</a></li>
+                            
+                     
+                    </ul>
+                    <form class="d-flex">
+                        <a class="text-1000" href="#!">
+
+                            </a><a class="text-1000" asp-action="Index" asp-controller="Cart">
+                            <svg class="feather feather-shopping-cart me-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="9" cy="21" r="1"></circle>
+                                <circle cx="20" cy="21" r="1"></circle>
+                                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                            </svg>
+                        </a>
+                            <nav class="navbar-nav">
+
+                            @if (User.Identity.IsAuthenticated)
+                            {
+
+                                    <li class="navbar-nav ">
+                                        <a class="nav-link " asp-controller="Account" asp-action="logout">Logout</a>
+                                    </li>
+
+
+                                    <li class="navbar-nav ">
+                                        <a class="nav-link " href="#">Welcome @User.Identity.Name</a>
+
+                                    </li>
+                            }
+                            else
+                            {
+                                    <a class="text-1000" asp-controller="Account" asp-action="login">
+                                        <svg class="feather feather-user me-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                                            <circle cx="12" cy="7" r="4"></circle>
+                                        </svg>
+                                    </a>
+                                    
+                                   
+                            }
+                                <a class="text-1000" asp-action="showfav" asp-controller="product">
+
+                                    <svg class="feather feather-heart me-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                                    </svg>
+                                </a>
+                            </nav>
+                      
+                       
+
+                              
+                       
+                    </form>
+
+                </div>
+            </div>
+               
+        </nav>
+          @*   @RenderSection("login",false)
+            @RenderSection("Register",false) *@
+        </div>
+        @RenderSection("login",false)
+        @RenderSection("Register",false)
+        @RenderSection("AddAdmin",false)
+
+
+      
+      <!-- <section> close ============================-->
+      <!-- ============================================-->
+
+
+    </main>
+    <!-- ===============================================-->
+    <!--    End of Main Content-->
+    <!-- ===============================================-->
+    <!-- ===============================================-->
+    <!--    JavaScripts-->
+    <!-- ===============================================-->
+    <script src="~/vendors/popperjs/popper.min.js"></script>
+    <script src="~/vendors/bootstrap/bootstrap.min.js"></script>
+    <script src="~/vendors/is/is.min.js"></script>
+    <script src="~/https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
+    <script src="~/vendors/feather-icons/feather.min.js"></script>
+    <script>
+      feather.replace();
+    </script>
+    <script src="~/js/theme.js"></script>
+
+    <link href="~/https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+  
+
+</body>
+</html>

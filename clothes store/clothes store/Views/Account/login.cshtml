@@ -1,0 +1,131 @@
+﻿@model clothes_store.ViewModel.LoginVm
+
+@{
+    ViewData["Title"] = "login";
+}
+@{
+    Layout = "_loginLayout";
+}
+@section login{
+
+<hr />
+    <section class="text-center text-lg-start rounded-3 ">
+  <style>
+            @@media (max-width: 950px) {
+                #hlog {
+                    visibility: hidden
+                }
+            }
+    .cascading-right {
+      margin-right: -50px;
+    }
+
+            @@media (min-width: 768px) and (max-width: 1000px),
+            @@media (max-width: 768px) {
+                #hlog {
+                    visibility: hidden
+                }
+            }
+  </style>
+
+    <div class="container py-4 rounded-3">
+        <div class="row g-0 align-items-center">
+            <div class="col-lg-6 mb-5 mb-lg-0">
+                <div class="card cascading-right" style="
+            background: hsla(0, 0%, 100%, 0.55);
+            backdrop-filter: blur(30px);
+            ">
+                    <div class="card-body p-5 shadow-5 text-center" style="background-color:gainsboro">
+                        <h2 class="fw-bold mb-5">Log In</h2>
+                           
+                            <form asp-action="login" method="post" >
+                                <div asp-validation-summary="ModelOnly"></div>
+                            <!-- 2 column grid layout with text inputs for the first and last names -->
+                            
+                               
+                                    <div data-mdb-input-init class="form-outline  mb-4">
+                                            <label asp-for="Name" class="form-label" for="form3Example1">First name</label>
+                                            <input asp-for="Name" type="text" id="form3Example1" class="form-control" />
+                                           
+                                            <span asp-validation-for="Name" class="text-danger"></span>
+                                    </div>
+                                
+                                
+                            </>
+
+                            
+                            <!-- Password input -->
+                            <div data-mdb-input-init class="form-outline mb-4">
+                                    <label asp-for="Password" class="form-label" for="form3Example4">Password</label>
+                                    <input asp-for="Password" type="password" id="form3Example4" class="form-control" />
+                                    
+                                    <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+
+                            <!-- Checkbox -->
+                                <div class="form-group form-check" style="margin-bottom: 15px;">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" asp-for="RememberMe" /> @Html.DisplayNameFor(model => model.RememberMe)
+                                    </label>
+                                </div>
+
+                            <!-- Submit button -->
+                                <input type="submit" value="Log In" class="btn btn-primary" style="background-color:steelblue;color:white" />
+                      
+                                <hr/>
+                                <p class="fw-bold">Don't Have Account ? Register Now</p>
+                                <input type="submit" value="Register" class="btn btn-primary" style="background-color:steelblue;color:white;margin-bottom:0px:" asp-action="Register" asp-controller="Account" />
+                                
+
+
+                            <!-- Register buttons -->
+                 
+                        </form>
+                    </div>
+                        <div class="text-center" style="background-color:gainsboro">
+
+                            
+                                <form asp-action="ExternalLogin">
+                                    <p class="fw-bold">Or Sign Up With:</p>
+                                     <input type="submit" value="Google" title="Login using Google account" class=" btn btn-primary rounded-3" style="background-color: steelblue; color: white; margin-bottom: 30px;width:300px ; padding-top: 5px;" name="provider" />
+                                    @* <input type="submit" value="Facebook" title="Login using Google account" class=" btn btn-primary rounded-3" style="background-color: steelblue; color: white; margin-bottom: 30px;width:300px ; padding-top: 5px;" name="provider" /> *@
+                            </form>
+                            
+                            @* else
+                            {
+                                <div>No external login providers have been configured.</div>
+                            } *@
+                                    @*  <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
+                            <i class="fab fa-twitter"></i>
+                            </button>
+
+                            <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
+                            <i class="fab fa-github"></i>
+                            </button>
+                               
+                            }
+                            else
+                            {
+                            
+                                <div> No external login is provide</div>
+                            } *@
+                     
+                        </div> 
+                </div>
+            </div>
+
+                <div class="col-lg-6 mb-5 mb-lg-0 " id="hlog">
+                    <img src="/img/gallery/login.jpg" class="w-100 rounded-4 shadow-4" style="width:400px;height:650px"
+                     alt="" />
+            </div>
+        </div>
+    </div>
+    <!-- Jumbotron -->
+    </section>
+    
+
+
+
+
+}
+

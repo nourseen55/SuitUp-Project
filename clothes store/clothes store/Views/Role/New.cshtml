@@ -1,0 +1,29 @@
+﻿@model clothes_store.ViewModel.RoleViewModel
+
+@{
+    ViewData["Title"] = "New";
+}
+@{
+    Layout = "_MyLayout";
+}
+
+
+<div class="container">
+    <div class="mb-3" >
+        <form asp-action="New">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="RoleName" class="control-label" style="font-family:'Times New Roman'"></label>
+                <input asp-for="RoleName" class="form-control" />
+                <span asp-validation-for="RoleName" class="text-danger" style="font-family:'Times New Roman'"></span>
+            </div>
+            <br /><br />
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary"style="color:white" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+

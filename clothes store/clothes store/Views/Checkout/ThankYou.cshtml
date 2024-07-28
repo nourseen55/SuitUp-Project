@@ -1,0 +1,148 @@
+﻿@model List<Item>
+@{
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+    ViewBag.Title = "ThankYou";
+}
+
+@section index {
+    <style>
+        .c {
+            background: #f2f2f2;
+            min-height: 100vh;
+            font-family: Muli;
+            font-size: 14px;
+            display: flex;
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+        }
+
+        .card {
+            width: 350px;
+            max-width: 600px;
+            border-radius: 20px;
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .main {
+            padding: 0 20px;
+        }
+
+        .row-main {
+            padding: 10px 0;
+            align-items: center;
+        }
+
+        .item-info {
+            background-color: #f5f5f5; /* Light gray */
+            border-radius: 5px;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+
+            .item-info p {
+                margin: 0;
+            }
+
+        .total {
+            text-align: center;
+            font-size: 1rem;
+            margin-top: 20px;
+        }
+
+        .btn {
+            background-color: gray;
+            border-color: gray;
+            color: white;
+            border-radius: 7px;
+            width: 100%;
+            font-size: 0.8rem;
+            padding: 10px;
+            margin-top: 20px;
+        }
+
+            .btn:hover {
+                color: white;
+            }
+    </style>
+    <div class="c">
+        <div class="card">
+            <div class="title"> Thank you for your order! </div>
+            <div class="main">
+                <span id="sub-title" style="font-size:20px">
+                    <p><b><center>Payment Summary</center></b></p>
+                </span>
+                @foreach (var item in Model.Where(i => i.IsInCart))
+                {
+                    <div class="col-12 item-info">
+                        <div class="row d-flex align-items-center">
+                            <div class="col-4">
+                                <p><b>Name</b></p>
+                                <p><b>@item.Product.Name</b></p>
+                            </div>
+                            <div class="col-4 text-center">
+                                <p><b>Quantity</b></p>
+                                <p><b>@item.Quantity</b></p>
+                            </div>
+                            <div class="col-4 text-right">
+                                <p><b>Price</b></p>
+                                <p><b>$@item.Product.Price</b></p>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+            <hr>
+            <div class="total">
+                <div class="row">
+                    @if (Model.Any(i => i.IsInCart))
+                    {
+                        <td colspan="6" class="text-center" style="font-family:'Times New Roman'"><strong>Total: <span id="total">$@Model.Where(i=>i.IsInCart).Sum(item => item.Product.Price * item.Quantity)</span></strong></td>
+                    }
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-center">
+                        <!-- Centering the button horizontally -->
+                        <a id="clearCartBtn" href="@Url.Action("Index","Home")" class="d-flex mx-auto">
+                            <!-- Centering the button text vertically and horizontally -->
+                            <button  class="btn">Go To Home Page</button>
+                        </a>
+                        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+                        <script>
+                            document.getElementById('clearCartBtn').addEventListener('click', function () {
+                                clearCart();
+                            });
+                            function clearCart() {
+                                // Send AJAX request to clear the cart
+                                var xhr = new XMLHttpRequest();
+                                xhr.open('POST', '/Cart/Clear', true);
+                                xhr.setRequestHeader('Content-Type', 'application/json');
+                                xhr.onload = function () {
+                                    if (xhr.status === 200) {
+                                        window.location.href = '/Home/Index';
+
+                                    } else {
+                                        console.error('Failed to clear cart.');
+                                    }
+                                };
+                                xhr.send();
+                            }
+                        </script>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+}

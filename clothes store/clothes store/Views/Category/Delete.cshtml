@@ -1,0 +1,22 @@
+﻿@model clothes_store.Models.Category
+@{
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+<div class="container">
+    <h2>Category Details</h2>
+
+    <div class="card">
+        <div class="card-body">
+            <h4 class="card-title">ID: @Model.Id</h4>
+            <h4 class="card-title">Name: @Model.Name</h4>
+            <h4 class="card-title">LargeCategory:@Model.largeCategoryId</h4>
+            <h4 class="card-title">Image: @Model.Image</h4>
+        </div>
+    </div>
+
+    <form asp-action="ConfirmDelete" asp-route-id="@Model.Id" method="post" class="mt-3">
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a asp-action="Index" class="btn btn-secondary" style="background-color:gray">Cancel</a>
+    </form>
+</div>
+

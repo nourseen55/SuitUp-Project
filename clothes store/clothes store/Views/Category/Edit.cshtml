@@ -1,0 +1,26 @@
+﻿@model clothes_store.ViewModel.categoryVM
+@{
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+
+<div class="container">
+
+    <form asp-action="SaveEdit" asp-route-id="@Model.Id" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label for="Name" class="form-label">Name:</label>
+            <input type="text" asp-for="Name" class="form-control" id="Name" />
+        </div>
+        <div class="mb-3">
+            <label for="Image" class="form-label">Image:</label>
+            <input type="file" asp-for="Image" class="form-control" id="Image" />
+        </div>
+        <div class="mb-3">
+            <label for="largeCategoryId" class="form-label">largeCategory:</label>
+            <input type="text" asp-for="largeCategoryId" class="form-control" id="largeCategoryId" />
+
+        </div>
+        <button type="submit" class="btn btn-primary" style="color:white">Save Changes</button>
+    </form>
+</div>
+
+

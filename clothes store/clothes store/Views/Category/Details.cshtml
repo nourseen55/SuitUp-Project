@@ -1,0 +1,247 @@
+﻿@model clothes_store.Models.Product;
+@{
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+@section Edit {
+    <style>
+        .product-card {
+            border: 3px solid white;
+            border-radius: 10px;
+            overflow: hidden;
+            background-color: #f2f2f2;
+        }
+
+        .product-details {
+            padding: 20px;
+        }
+
+        .centered-button {
+            text-align: right;
+        }
+
+            .centered-button button {
+                padding: 10px 20px;
+                border: none;
+                background-color: palevioletred; /* Set button background color */
+                color: #fff;
+                cursor: pointer;
+                transition: background-color 0.3s, color 0.3s;
+            }
+
+                .centered-button button:hover {
+                    background-color: lightgray; /* Change button background color on hover */
+                    color: #fff;
+                }
+
+        .added {
+            background-color: lightgray !important; /* Change button background color when added */
+            /* color: !important; */
+        }
+
+        .product-name {
+            font-weight: bold; /* Make product name bold */
+            font-size: 24px; /* Increase font size of product name */
+        }
+
+        .product-details p {
+            margin-bottom: 5px; /* Add margin bottom to separate product details */
+        }
+
+        .product-details b {
+            font-weight: bold; /* Make product details bold */
+        }
+
+        .square-border {
+            border: 2px solid white; /* Add border to the square */
+            border-radius: 10px; /* Add border radius for rounded corners */
+            padding: 20px; /* Add padding to the square */
+            margin-top: 10px; /* Add margin top to separate from product details */
+        }
+
+        .color-circle {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            margin-right: 5px;
+            display: inline-block;
+        }
+
+        .white-circle {
+            border: 1px solid black;
+            background-color: white;
+        }
+
+        .black-circle {
+            border: 1px solid black;
+            background-color: black;
+        }
+
+        .silver-circle {
+            border: 1px solid black;
+            background-color: silver;
+        }
+
+        .Gold-circle {
+            border: 1px solid black;
+            background-color: goldenrod;
+        }
+    </style>
+
+    <script>
+        function addToCart() {
+            var button = document.getElementById("cartButton");
+            if (!button.classList.contains("added")) {
+                button.innerHTML = "Added To Cart ✓";
+                button.classList.add("added");
+
+
+                var alertDiv = document.createElement("div");
+                alertDiv.classList.add("alert", "alert-light");
+                alertDiv.setAttribute("role", "alert");
+                alertDiv.textContent = "Product added to cart successfully!";
+
+                // Append the alert to a container div
+                var containerDiv = document.getElementById("alertContainer");
+                containerDiv.appendChild(alertDiv);
+                setTimeout(function () {
+                    alertDiv.remove();
+                }, 2000);
+            }
+        }
+    </script>
+
+    <div class="container">
+
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card mt-5 product-card">
+                    <div class="card-body">
+                        <div id="alertContainer"></div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <p class="form-control-static product-name">@Model.Name</p>
+                                <img src="~/img/gallery/@Model.urlimg" class="img-fluid" alt="Product Image">
+                            </div>
+                            <div class="col-md-8 product-details">
+                                <div class="square-border">
+
+                                    <p class="product-name">Description</p>
+                                    <p class="form-control-static"><b>Price:</b> $@Model.Price</p>
+                                    <style>
+                                        .color-selection {
+                                            margin-bottom: 10px;
+                                        }
+
+                                            .color-selection label {
+                                                margin-right: 10px;
+                                            }
+
+                                        #productImage {
+                                            width: 200px;
+                                            height: auto;
+                                            margin-top: 10px;
+                                        }
+                                    </style>
+
+                                    @if (@Model.Category_id == 1 || @Model.Category_id == 4 || Model.Category_id == 7)
+                                    {
+                                        <p><b>Select Size:</b></p>
+                                        <select id="sizeSelect" class="form-control">
+                                            <option value="S">S</option>
+                                            <option value="M">M</option>
+                                            <option value="L">L</option>
+                                            <option value="XL">XL</option>
+                                            <option value="XXL">XXL</option>
+                                        </select>
+                                    }
+
+                                    @if (@Model.Category_id == 6)
+                                    {
+                                        <p><b>Select Size:</b></p>
+                                        <select id="sizeSelect" class="form-control">
+                                            <option value="36">36</option>
+                                            <option value="37">37</option>
+                                            <option value="38">38</option>
+                                            <option value="39">39</option>
+                                            <option value="40">40</option>
+                                            <option value="41">41</option>
+                                            <option value="42">42</option>
+                                            <option value="43">43</option>
+
+                                        </select>
+                                    }
+                                    @if (@Model.Category_id == 9)
+                                    {
+                                        <p><b>Select Size:</b></p>
+                                        <select id="sizeSelect" class="form-control">
+                                            <option value="20">20</option>
+                                            <option value="21">21</option>
+                                            <option value="22">22</option>
+                                            <option value="23">23</option>
+                                            <option value="24">24</option>
+                                            <option value="25">25</option>
+                                            <option value="26">26</option>
+                                            <option value="27">27</option>
+                                            <option value="28">28</option>
+                                            <option value="29">29</option>
+                                            <option value="30">30</option>
+                                            <option value="31">31</option>
+
+
+                                        </select>
+                                    }
+                                    <br />
+                                    @if (@Model.Category_id == 3 || @Model.Category_id == 2 || @Model.Category_id == 5 || Model.Category_id == 8)
+                                    {
+                                        <div class="bag-size">
+                                            <button class="one-size-btn" onclick="toggleSizeDetails()" style="background-color:gray">One Size</button>
+                                            <div class="size-details" id="sizeDetails">
+                                                <p>Length:7 cm</p>
+                                                <p>Width: 28 cm</p>
+                                            </div>
+                                        </div>
+
+                                        <style>
+                                            .size-details {
+                                                background-color: #f2f2f2;
+                                                padding: 10px;
+                                                border-radius: 5px;
+                                                display: none;
+                                            }
+
+                                                .size-details p {
+                                                    display: inline-block;
+                                                    margin-right: 20px;
+                                                }
+
+                                        </style>
+                                    }
+                                    <script>
+                                        function toggleSizeDetails() {
+                                            var sizeDetails = document.getElementById("sizeDetails");
+                                            sizeDetails.style.display = (sizeDetails.style.display === "block") ? "none" : "block";
+                                        }
+
+                                    </script>
+
+                                </div>
+                                <!-- Add more product details here -->
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card-footer text-right centered-button">
+                        <!-- Right-aligned button -->
+                        <a href="@Url.Action("AddToCart","Cart",new {productId = Model.Id })">
+                            <button id="cartButton" class="btn btn-primary" onclick="addToCart()">Add To Cart <span class="cart-icon">&#128722;</span></button>
+
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

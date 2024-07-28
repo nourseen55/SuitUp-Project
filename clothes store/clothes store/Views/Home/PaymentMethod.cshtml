@@ -1,0 +1,133 @@
+﻿@{
+    Layout = "~/Views/Shared/_footerLayout.cshtml";
+}
+@section footer{
+    <style>
+        p, h6 {
+            font-size: 20px;
+            font-family: 'Book Antiqua';
+        }
+
+        @@media (max-width:1000px) {
+
+            .imgs {
+                visibility: hidden;
+            }
+
+            .mob {
+                visibility: visible;
+            }
+
+            .lab {
+                visibility: hidden;
+            }
+        }
+
+        @@media (min-width:1000px) {
+            .pp {
+                margin-left: 170px;
+            }
+
+            .mob {
+                visibility: hidden;
+            }
+
+            .lab {
+                visibility: visible;
+            }
+        }
+    </style>
+
+    <div class="pp" style="margin-bottom:60px;width:auto">
+        <h3 style="font-size:38px">Payment Methods</h3>
+        <hr style="width:auto;font-weight:100" />
+
+        <div class="row">
+            <div class="col-12 col-md-3">
+
+                <h6 style="margin-top:30px">1- Credit/Debit Cards</h6>
+                <p style="font-size:80px">
+                    <ul>
+                        <li><p>Description: Customers can make payments using major credit cards <br>(Visa, MasterCard, American Express, etc.) or debit cards.</p></li>
+                        <li>
+                            <p>Pros: Widely accepted, convenient for customers, fast transactions.</p>
+                        </li>
+                        <li>
+                            <p>Cons: Transaction fees may apply, potential for chargebacks.</p>
+                        </li>
+                    </ul>
+                </p>
+                <br />
+                <br />
+                <p style="font-size:80px">
+                    <h6 style="margin-top:30px">2- Cash</h6>
+
+                    <ul>
+                        <li><p>Description:Customers can make payments with physical currency at the point of sale.</p></li>
+                        <li>
+                            <p>Pros: Immediate payment, no transaction fees.</p>
+                        </li>
+                        <li>
+                            <p>Cons:Risk of theft, inconvenience for large transactions, requires physical presence.</p>
+                        </li>
+                    </ul>
+                </p>
+                <br />
+                <br />
+
+                <p style="font-size:80px">
+                    <h6 style="margin-top:30px">3- Bank Transfer:</h6>
+
+                    <ul>
+
+                        <li><p>Description:Customers can transfer funds directly from their bank account to the business's bank account.</p></li>
+                        <li>
+                            <p>Pros:Direct and secure transfer, suitable for large transactions.</p>
+                        </li>
+                        <li>
+                            <p>Cons: Processing time, may incur bank fees, requires customers to have online banking.</p>
+                        </li>
+                    </ul>
+                </p>
+                <div class="mob" style="margin:50px">
+                    <a href="#" class="btn btn-lg btn-secondary btn-lg-square rounded-0 back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="col-12 col-md-9 imgs">
+                <br />
+                <br />
+                <img src="/img/gallery/credit.jpg" style="width:300px;height:300px;margin-left:200px;margin-top:30px" />
+
+                <br />
+                <br /> <br /> <br />
+                <br />
+                <br /> <br />
+
+
+                <img src="/img/gallery/cash.jpg" style="width:500;height:250px;margin-left:200px;margin-top:30px" />
+
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+
+
+
+                <img src="/img/gallery/bank.jpg" style="width:500;height:250px;margin-left:200px;margin-top:30px" />
+
+            </div>
+        </div>
+    </div>
+    <div class="lab" style="margin:50px">
+        <a href="#" class="btn btn-lg btn-secondary btn-lg-square rounded-0 back-to-top"><i class="bi bi-arrow-up"></i></a>
+
+    </div>
+
+}

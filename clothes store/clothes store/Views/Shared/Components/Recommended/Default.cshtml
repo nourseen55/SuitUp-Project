@@ -1,0 +1,186 @@
+﻿
+  
+
+    <style>
+        @@media (max-width:568px) {
+            .proimg {
+                width: 100px;
+                height: 100px;
+            }
+
+            .rectext {
+                font-size: 15px;
+                margin-left: 150px;
+                margin-bottom: 15px;
+            }
+
+            .prev-btn, .next-btn {
+                visibility: hidden;
+            }
+
+            .details {
+                font-size: 15px;
+            }
+        }
+
+        @@media (min-width:568px) and (max-width:1000px) {
+            .prev-btn, .next-btn {
+                visibility: hidden;
+            }
+
+            .proimg {
+                width: 150px;
+                height: 150px;
+            }
+
+            .rectext {
+                font-size: 25px;
+                margin-left: 250px;
+                margin-bottom: 20px;
+            }
+        }
+
+        @@media (min-width:1000px) {
+            .proimg {
+                width: 300px;
+                height: 300px;
+            }
+
+            .details {
+                font-size: 20px;
+            }
+
+            .rectext {
+                font-size: 35px;
+                margin-left: 550px;
+                margin-bottom: 50px;
+            }
+            .rectext:hover{
+                color:sienna
+            }
+        }
+
+        .product-section {
+            position: relative; /* Positioning context for navigation buttons */
+        }
+
+        .navigation-buttons {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            padding: 0 20px; /* Adjust as needed */
+            box-sizing: border-box; /* Ensure padding is included in width */
+            transition: transform 0.2s;
+        }
+
+        .prev-btn,
+        .next-btn {
+            padding: 50px 50px; /* Add padding as needed */
+            padding-top: 50px;
+            cursor: pointer;
+        }
+
+
+        .container {
+            display: flex;
+            flex-wrap: nowrap; /* Ensure all products are in a single row */
+            overflow-x: auto; /* Allow horizontal scrolling for overflow */
+            -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
+            padding: 0 20x;
+        }
+
+
+        .product-item-container {
+            flex: 0 0 calc(25% - 20px); /* Adjust width as needed */
+            margin-right: 20px; /* Add space between products */
+        }
+
+            .product-item-container:last-child {
+                margin-right: 0; /* Remove margin for the last product */
+            }
+
+        /* Hide scrollbar */
+        .container::-webkit-scrollbar {
+            display: none;
+        }
+
+
+        /* Hide scrollbar for Firefox */
+        .container {
+            scrollbar-width: none;
+        }
+
+        .cart-symbol {
+            display: inline-block;
+            font-size: 24px;
+            margin-left: 10px; /* Adjust as needed for spacing */
+            color: #333; /* Adjust the color as per your design */
+        }
+
+    </style>
+
+    <div class="product-section">
+        <div class="navigation-buttons">
+            <span class="material-symbols-outlined next-btn">
+                arrow_back_ios
+            </span>
+            <span class="material-symbols-outlined prev-btn">
+
+                arrow_forward_ios
+            </span>
+        </div>
+        <h3 style="font-weight:bold;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;" class="rectext">Recommended For You</h3>
+        <br />
+
+        <div class="container">
+
+
+            @foreach (var product in Model)
+            {
+                <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0 product-item-container" data-product-id="@product.Id">
+                    <a class="product-item" asp-action="details" asp-controller="product" asp-route-id="@product.Id">
+                        <img class="proimg" style=" border-radius: 10px;" src="~/img/gallery/@product.urlimg" class="img-fluid product-thumbnail">
+                        <br />
+                        <p class="product-title details" style="font-family:'Times New Roman', Times, serif;font-weight:bold">@product.Name</p>
+                        <p class="product-price details" style="font-family:'Times New Roman', Times, serif;font-weight:bolder">$@product.Price</p>
+                        <span class="cart-symbol material-symbols-outlined">
+                            add_shopping_cart
+                        </span>
+                    </a>
+                </div>
+            }
+        </div>
+    </div>
+    
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            var container = $(".container");
+            var products = $(".product-item-container");
+            var currentIndex = 0;
+            var totalProducts = products.length;
+
+            $(".prev-btn").click(function () {
+                currentIndex = (currentIndex === 0) ? totalProducts - 1 : currentIndex - 1;
+                updateVisibleProduct();
+            });
+
+            $(".next-btn").click(function () {
+                currentIndex = (currentIndex === totalProducts - 1) ? 0 : currentIndex + 1;
+                updateVisibleProduct();
+            });
+
+            function updateVisibleProduct() {
+                var productWidth = products.eq(currentIndex).outerWidth(true);
+                container.animate({ scrollLeft: currentIndex * productWidth }, 300);
+            }
+        });
+
+         </script>
+
+  

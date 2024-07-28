@@ -1,0 +1,125 @@
+﻿@model List<Product>
+@{
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+@section indexproduct {
+
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            padding: 7px;
+            cursor: pointer;
+        }
+
+        .product-icons {
+            display: flex;
+            align-items: center;
+        }
+
+            .product-icons img {
+                margin-right: 5px; /* Adjust spacing between icons */
+            }
+    </style>
+    <div class="product-section">
+        <div class="container">
+            <div class="row">
+                @foreach (var product in Model)
+                {
+                    <div class="col-12 col-md-4 col-lg-3 mb-5 mb-md-0">
+                        <div class="product-item" data-product-id="@product.Id">
+                            <!-- Moved the product-item class here -->
+                            <a asp-action="details" asp-controller="product" asp-route-id="@product.Id">
+                                <img style="width: 300px; height: 300px;border-radius: 10px;" src="~/img/gallery/@product.urlimg" class="img-fluid product-thumbnail">
+                                <h3 class="product-title" style="font-family:'Times New Roman'">@product.Name</h3>
+                            </a>
+                            <strong class="product-price" style="font-family:'Times New Roman'">$@product.Price</strong>
+
+                            <div class="product-icons">
+                                <span onclick="toggleFavorite(this)" class="material-symbols-outlined">
+                                    favorite
+                                </span>
+                                <a href="@Url.Action("AddToCart","Cart",new {productId = product.Id })">
+                                    <span class="material-symbols-outlined">
+                                        add_shopping_cart
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let isAuthenticated = @(User.Identity.IsAuthenticated.ToString().ToLower());
+
+            if (isAuthenticated) {
+                let productItems = document.querySelectorAll('.product-item');
+                productItems.forEach(function (item) {
+                    let productId = item.dataset.productId;
+                    let isFavorite = localStorage.getItem('favorite_' + productId);
+                    let iconElement = item.querySelector('.material-symbols-outlined');
+
+                    if (isFavorite === 'true') {
+                        iconElement.innerHTML = `
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" />
+                                            </svg>
+                                        `;
+                    }
+                });
+            }
+
+        });
+
+        function toggleFavorite(element) {
+            let isAuthenticated = @(User.Identity.IsAuthenticated.ToString().ToLower());
+
+            if (!isAuthenticated) {
+                // If not authenticated, show alert
+                alert("You must log in to use this functionality.");
+                return;
+            }
+
+            let productItem = element.closest('.product-item');
+            let productId = productItem.dataset.productId;
+            let iconElement = productItem.querySelector('.material-symbols-outlined');
+            let isFavorite = productItem.dataset.isFavorite === 'true';
+
+            isFavorite = !isFavorite;
+
+            localStorage.setItem('favorite_' + productId, isFavorite.toString());
+            if (isFavorite) {
+                iconElement.innerHTML = `
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314" />
+                                        </svg>
+                                    `;
+            } else {
+                iconElement.innerHTML = 'favorite';
+            }
+
+            fetch('/Product/ToggleFavorite', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    productId: parseInt(productId),
+                    isFavorite: isFavorite
+                })
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+
+            productItem.dataset.isFavorite = isFavorite.toString();
+        }
+    </script>
+    }

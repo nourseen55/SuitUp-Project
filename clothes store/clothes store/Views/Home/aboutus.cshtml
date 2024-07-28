@@ -1,0 +1,193 @@
+﻿@{
+    Layout = "~/Views/Shared/_footerLayout.cshtml";
+}
+@section footer{
+
+    <style>
+        @@media (max-width:1000px) {
+            .large-card {
+                visibility: hidden;
+            }
+
+            .mob {
+                visibility: visible;
+            }
+        }
+
+        @@media (min-width: 1000px) {
+            .large-card {
+                visibility: visible;
+            }
+
+            .mob {
+                visibility: hidden;
+            }
+        }
+
+        .container {
+            align-items: center;
+            position: fixed;
+            left: 5%;
+            top: 10%;
+        }
+
+        .circle {
+            width: 100px; /* Adjust size as needed */
+            height: 100px; /* Adjust size as needed */
+            border-radius: 50%; /* Creates a circle */
+        }
+
+        .large-card {
+            padding-right: 70px;
+            padding-bottom: 70px;
+            padding-top: 7px;
+            padding-left: 70px;
+            border-radius: 10px;
+            background-color: #f2f2f2; /* Example background color */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            width: 950px;
+            height: 450px;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .text {
+            position: fixed;
+            top: 20%;
+            left: 20%;
+        }
+
+        .cute-border {
+            width: 300px;
+            height: 370px;
+            border: 2px solid white; /* Border style */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Box shadow for a cute effect */
+        }
+
+        .rect {
+            position: fixed;
+            left: 56%;
+            top: 10%;
+        }
+
+    </style>
+
+    <br />
+    <br />
+    <br />
+    <div class="container mob">
+        <div class="row">
+            <center>
+                <h2 style="font-family:'Times New Roman', Times, serif;font-size:30px;">About Us</h2>
+
+                <div class="col-12 col-md-3">
+
+                    <img src="/img/gallery/nourseen.jpg" alt="Your Photo" class="circle">
+                    <i class="fa fa-share"></i>
+
+                    <p style="font-family:'Book Antiqua';font-weight:bold">Nourseen Mohsen</p>
+                    <span>
+                        <a href="https://www.facebook.com/nourseen.elgaml?mibextid=ZbWKwL"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.linkedin.com/in/nourseen-mohsen-7baaa7277?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.instagram.com/nourseenmohsenn?igsh=MTcxd3BiYzRieXRpYg=="><i class="fab fa-instagram"></i></a>
+                    </span>
+                </div>
+                <br />
+                <div class="col-12 col-md-3">
+                    <img src="/img/gallery/amaal.jpg" alt="Your Photo" class="circle">
+                    <i class="fa fa-share"></i>
+                    <p style="font-family:'Book Antiqua';font-weight:bold">Amaal Selim</p>
+
+                    <span>
+                        <a href="https://www.facebook.com/amaal.selim.7?mibextid=ZbWKwL"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.linkedin.com/in/amaal-selim-b7501228b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.instagram.com/amaalselim?igsh=bzIyY3d6cDlmazNk"><i class="fab fa-instagram"></i></a>
+                    </span>
+                </div>
+                <br />
+                <div class="col-12 col-md-3">
+                    <img src="/img/gallery/rahma.jpg" alt="Your Photo" class="circle">
+                    <i class="fa fa-share"></i>
+                    <p style="  font-family:'Book Antiqua';font-weight:bold" class="">Rahma Akmal</p>
+                    <span>
+                        <a href="https://www.facebook.com/rahma.akmal.126?mibextid=ZbWKwL"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.linkedin.com/in/rahma-akmal-bb9aa4277?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://www.instagram.com/rahmaakmal?igsh=MWhyZjNwZzdzajFxNA=="><i class="fab fa-instagram"></i></a>
+                    </span>
+                </div>
+            </center>
+        </div>
+    </div>
+
+
+
+    <div class="container">
+        <div class="large-card">
+            <center>
+                <h2 style="font-family:'Times New Roman', Times, serif">About Us</h2>
+
+            </center>
+
+            <div class="row">
+                <div class="col-12 col-md-3">
+                    <img src="/img/gallery/nourseen.jpg" alt="Your Photo" class="circle">
+                </div>
+                <div class="col-12 col-md-9">
+                    <p style="font-family:'Book Antiqua';font-weight:bold" class="text">Nourseen Mohsen</p>
+                    <div style="position:fixed;top:27%;left:22%">
+                        <i class="fa fa-share"></i>
+                        <span>
+                            <a href="https://www.facebook.com/nourseen.elgaml?mibextid=ZbWKwL"><i class="fab fa-facebook-f"></i></a>
+                            <a href="https://www.linkedin.com/in/nourseen-mohsen-7baaa7277?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://www.instagram.com/nourseenmohsenn?igsh=MTcxd3BiYzRieXRpYg=="><i class="fab fa-instagram"></i></a>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+            <br />
+            <div class="row">
+                <div class="col-12 col-md-3">
+                    <img src="/img/gallery/amaal.jpg" alt="Your Photo" class="circle">
+                </div>
+                <div class="col-12 col-md-9">
+                    <p style=" position:fixed;top:47%;left:20%;font-family:'Book Antiqua';font-weight:bold">Amaal Selim</p>
+                    <div style="position:fixed;top:54%;left:22%">
+                        <i class="fa fa-share"></i>
+                        <span>
+                            <a href="https://www.facebook.com/amaal.selim.7?mibextid=ZbWKwL"><i class="fab fa-facebook-f"></i></a>
+                            <a href="https://www.linkedin.com/in/amaal-selim-b7501228b?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://www.instagram.com/amaalselim?igsh=bzIyY3d6cDlmazNk"><i class="fab fa-instagram"></i></a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <br />
+
+            <div class="row">
+                <div class="col-12 col-md-3">
+                    <img src="/img/gallery/rahma.jpg" alt="Your Photo" class="circle">
+                </div>
+                <div class="col-12 col-md-9">
+                    <p style=" position:fixed;top:76%;left:20%; font-family:'Book Antiqua';font-weight:bold" class="">Rahma Akmal</p>
+                    <div style="position:fixed;top:83%;left:22%">
+                        <i class="fa fa-share"></i>
+                        <span>
+                            <a href="https://www.facebook.com/rahma.akmal.126?mibextid=ZbWKwL"><i class="fab fa-facebook-f"></i></a>
+                            <a href="https://www.linkedin.com/in/rahma-akmal-bb9aa4277?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i class="fab fa-linkedin"></i></a>
+                            <a href="https://www.instagram.com/rahmaakmal?igsh=MWhyZjNwZzdzajFxNA=="><i class="fab fa-instagram"></i></a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="rect">
+                <img class="cute-border" src="~/img/Us.jpg" />
+                <p style="position:fixed;right:14%;margin-top:3px;font-weight:bold">Three Girls Work To Impress You</p>
+
+            </div>
+        </div>
+
+    }

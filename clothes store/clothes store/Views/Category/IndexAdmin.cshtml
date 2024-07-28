@@ -1,0 +1,51 @@
+﻿@model IEnumerable<clothes_store.Models.Category>
+@{
+    Layout = "~/Views/Shared/_MyLayout.cshtml";
+}
+@{
+    Project context = new Project();
+}
+@section MainContent {
+    <center>
+        <div class="mb-3 d-flex justify-content-center align-items-center text-center align-middle">
+            <a href="@Url.Action("Add","Category")" class="btn btn-primary mr-2" style="color:white">Create New Category</a> <!-- Added margin right -->
+            <div class="mx-3"></div> <!-- Added space between buttons -->
+            <a href="/" class="btn btn-primary" style="color:white">Back to List</a>
+        </div>
+    </center>
+    <br />
+    <div class="container">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+
+                    <th><center>ID</center></th>
+                    <th><center>Name</center></th>
+                    <th><center>Image</center></th>
+                    <th><center>Action</center></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var category in Model)
+                {
+                    <tr>
+                        <td class="align-middle text-center"><strong>@category.Id</strong></td>
+                        <td class="align-middle text-center"><strong>@category.Name</strong></td>
+                        <td><img src="~/img/gallery/@category.Image" class="img-fluid" alt="Category Image" height="100" width="150" /></td>
+                        <td class="text-center align-middle">
+                            <div class="d-flex justify-content-center align-items-center">
+
+                                <a href="@Url.Action("Edit", "Category", new { id = category.Id })" class="btn mx-2 btn-primary " style="color:white">Edit</a>
+                                <a href="@Url.Action("Delete", "Category", new { id = category.Id })" class="btn ml-2  " style="background-color:grey;color:white">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+        <br />
+
+    </div>
+}
+
