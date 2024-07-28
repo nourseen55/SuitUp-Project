@@ -1,3 +1,5 @@
-# SuitUp-Project
-## MVC E-commerce .Net Project
-[Website] (https://suitup.runasp.net/) that the user can view everything they need to shopping
+# SuitUp Project
+
+Welcome to the SuitUp Project repository.
+
+[Visit our website](https://suitup.runasp.net/) to view everything you need for shopping.
